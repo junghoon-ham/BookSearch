@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/fragment_book.xml" value="0.18177083333333333" />
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/fragment_favorite.xml" value="0.36614583333333334" />
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/fragment_search.xml" value="0.36614583333333334" />
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/fragment_settings.xml" value="0.36614583333333334" />
