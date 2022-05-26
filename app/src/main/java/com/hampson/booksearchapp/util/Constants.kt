@@ -1,6 +1,5 @@
 package com.hampson.booksearchapp.util
 
-import com.hampson.booksearchapp.BuildConfig
 
 object Constants {
     const val BASE_URL = "https://dapi.kakao.com/"

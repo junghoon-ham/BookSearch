@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hampson.booksearchapp.data.model.Book
 import com.hampson.booksearchapp.data.model.SearchResponse
 import com.hampson.booksearchapp.data.repository.BookSearchRepository
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,17 @@ class BookSearchViewModel(
             }
         }
     }
+
+    // Room
+    fun saveBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        bookSearchRepository.insertBooks(book)
+    }
+
+    fun deleteBook(book: Book) = viewModelScope.launch(Dispatchers.IO) {
+        bookSearchRepository.deleteBooks(book)
+    }
+
+    val favoriteBooks: LiveData<List<Book>> = bookSearchRepository.getFavoriteBooks()
 
     // SavedState
     //var query = String()

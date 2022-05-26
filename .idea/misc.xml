@@ -10,6 +10,8 @@
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/fragment_settings.xml" value="0.36614583333333334" />
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/layout/item_book_preview.xml" value="0.36614583333333334" />
         <entry key="..\:/projects/BookSearchApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/layout/fragment_book.xml" value="0.1734375" />
+        <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1734375" />
       </map>
     </option>
   </component>
