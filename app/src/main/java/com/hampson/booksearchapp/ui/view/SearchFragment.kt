@@ -11,16 +11,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hampson.booksearchapp.databinding.FragmentSearchBinding
-import com.hampson.booksearchapp.ui.adapter.BookSearchAdapter
+import com.hampson.booksearchapp.ui.adapter.BookSearchPagingAdapter
 import com.hampson.booksearchapp.ui.viewModel.BookSearchViewModel
 import com.hampson.booksearchapp.util.Constants.SEARCH_BOOKS_TIME_DELAY
+import com.hampson.booksearchapp.util.collectLatestStateFlow
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var bookSearchViewModel: BookSearchViewModel
-    private lateinit var bookSearchAdapter: BookSearchAdapter
+
+    //private lateinit var bookSearchAdapter: BookSearchAdapter
+    private lateinit var bookSearchPagingAdapter: BookSearchPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,14 +41,19 @@ class SearchFragment : Fragment() {
         setupRecyclerView()
         searchBooks()
 
-        bookSearchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
-            val books = response.documents
-            bookSearchAdapter.submitList(books)
+        //bookSearchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
+        //    val books = response.documents
+        //    bookSearchPagingAdapter.submitList(books)
+        //}
+
+        collectLatestStateFlow(bookSearchViewModel.searchPagingResult) {
+            bookSearchPagingAdapter.submitData(it)
         }
     }
 
     private fun setupRecyclerView() {
-        bookSearchAdapter = BookSearchAdapter()
+        //bookSearchAdapter = BookSearchAdapter()
+        bookSearchPagingAdapter = BookSearchPagingAdapter()
         binding.rvSearchResult.apply {
             setHasFixedSize(true)
             layoutManager =
@@ -56,9 +64,9 @@ class SearchFragment : Fragment() {
                     DividerItemDecoration.VERTICAL
                 )
             )
-            adapter = bookSearchAdapter
+            adapter = bookSearchPagingAdapter
         }
-        bookSearchAdapter.setOnItemClickListener {
+        bookSearchPagingAdapter.setOnItemClickListener {
             val action = SearchFragmentDirections.actionFragmentSearchToFragmentBook(it)
             findNavController().navigate(action)
         }
@@ -74,7 +82,8 @@ class SearchFragment : Fragment() {
                 text?.let {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
-                        bookSearchViewModel.searchBooks(query)
+                        //bookSearchViewModel.searchBooks(query)
+                        bookSearchViewModel.searchBooksPaging(query)
                     }
                 }
             }
