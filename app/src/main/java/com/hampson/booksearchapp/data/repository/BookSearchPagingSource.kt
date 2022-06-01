@@ -2,13 +2,14 @@ package com.hampson.booksearchapp.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.hampson.booksearchapp.data.api.RetrofitInstance.api
+import com.hampson.booksearchapp.data.api.BookSearchApi
 import com.hampson.booksearchapp.data.model.Book
 import com.hampson.booksearchapp.util.Constants.PAGING_SIZE
 import retrofit2.HttpException
 import java.io.IOException
 
 class BookSearchPagingSource(
+    private val api: BookSearchApi,
     private val query: String,
     private val sort: String
 ) : PagingSource<Int, Book>() {
@@ -16,7 +17,7 @@ class BookSearchPagingSource(
     companion object {
         const val STARTING_PAGE_INDEX = 1
     }
-    
+
     override fun getRefreshKey(state: PagingState<Int, Book>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
