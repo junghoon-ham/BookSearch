@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hampson.booksearchapp.databinding.FragmentSearchBinding
 import com.hampson.booksearchapp.ui.adapter.BookSearchPagingAdapter
-import com.hampson.booksearchapp.ui.viewModel.BookSearchViewModel
+import com.hampson.booksearchapp.ui.viewModel.SearchViewModel
 import com.hampson.booksearchapp.util.Constants.SEARCH_BOOKS_TIME_DELAY
 import com.hampson.booksearchapp.util.collectLatestStateFlow
 
@@ -22,7 +22,8 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     //private lateinit var bookSearchViewModel: BookSearchViewModel
-    private val bookSearchViewModel by activityViewModels<BookSearchViewModel>()
+    //private val bookSearchViewModel by activityViewModels<BookSearchViewModel>()
+    private val searchViewModel by viewModels<SearchViewModel>()
 
     //private lateinit var bookSearchAdapter: BookSearchAdapter
     private lateinit var bookSearchPagingAdapter: BookSearchPagingAdapter
@@ -48,7 +49,7 @@ class SearchFragment : Fragment() {
         //    bookSearchPagingAdapter.submitList(books)
         //}
 
-        collectLatestStateFlow(bookSearchViewModel.searchPagingResult) {
+        collectLatestStateFlow(searchViewModel.searchPagingResult) {
             bookSearchPagingAdapter.submitData(it)
         }
     }
@@ -85,7 +86,7 @@ class SearchFragment : Fragment() {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
                         //bookSearchViewModel.searchBooks(query)
-                        bookSearchViewModel.searchBooksPaging(query)
+                        searchViewModel.searchBooksPaging(query)
                     }
                 }
             }
